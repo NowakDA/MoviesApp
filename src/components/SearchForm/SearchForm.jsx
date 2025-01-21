@@ -1,35 +1,63 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Input } from 'antd';
 import debounce from 'lodash/debounce';
+import './SearchForm.css'
 
 const SearchForm = ({ createUrl }) => {
     const [value, setValue] = useState('');
-        console.log(value)
-    // Создаем дебаунсированную версию функции createUrl
-    const debouncedCreateUrl = useCallback(
-        debounce((searchValue) => {
-            console.log(searchValue)
-            createUrl(searchValue);
-        }, 300), // задержка в миллисекундах
-        [createUrl]
+
+
+    useEffect(() => {
+        const storedValue = sessionStorage.getItem('searchValue');
+        if (storedValue) {
+            setValue(storedValue);
+        }
         
+        const handleBeforeUnload = () => {
+            sessionStorage.removeItem('searchValue'); 
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setValue(''); 
+                sessionStorage.removeItem('searchValue'); 
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+  
+    const debounceCreateUrl = useCallback(
+        debounce((searchValue) => {
+            createUrl(searchValue);
+        }, 500), 
+        [createUrl]
     );
 
     const handleChange = (e) => {
         const newValue = e.target.value;
-        setValue(newValue); // Обновляем состояние value
-        debouncedCreateUrl(newValue); // Вызываем дебаунсированную функцию
+        setValue(newValue);
+        sessionStorage.setItem('searchValue', newValue); 
+        debounceCreateUrl(newValue); 
     };
 
     return (
-        <div>
+        <>
             <Input
                 className='search-input'
                 placeholder="Type to search..."
-                value={value} // Устанавливаем значение из состояния
+                value={value} 
                 onChange={handleChange}
             />
-        </div>
+        </>
     );
 };
 

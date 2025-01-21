@@ -1,7 +1,13 @@
-.search-input{
-    margin-top: 20px;
-    margin-bottom: 34px;
-    max-width: 938px;
-    height: 40px;
+.ant-row {
+    margin-left: 0 !important;
+
+    margin-right: 0 !important;
+
+    margin-top: 34px;
     
+}
+
+.ant-col {
+    padding: 0 !important;
+
 }

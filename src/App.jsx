@@ -88,6 +88,7 @@ const App = () => {
           <SearchForm createUrl={createUrl} />
           <MoviesList 
            movies={movies}
+           loading={loading}
            />
           <Pagination
             current={currentPage}

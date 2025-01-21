@@ -5,6 +5,8 @@
 
 .ant-card {
   border-radius: 0px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .custom-rate {

@@ -8,15 +8,23 @@ import noPoster from '../../assets/no-poster-available.jpg'
 
 
 
-const MoviesList = ({movies, error}) => {
-  //console.log(movies)
+const MoviesList = ({movies}) => {
+
 
   const truncateDescription = (description, maxLength = 80) => {
     if (description.length <= maxLength) return description;
     return description.slice(0, description.lastIndexOf(' ', maxLength)) + '...';
   };
 
-
+  if(movies.length===0){
+    return (<Alert
+      message="Something went wrong"
+      description="Unfortunately, we couldn't find any movies for your search. Please try to change the search parameters."
+      type="warning"
+      showIcon
+      style={{ marginBottom: '20px' }}
+    />)
+  }
 
   return (
     <>
