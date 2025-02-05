@@ -1,50 +1,38 @@
 
-import { useState, useEffect } from 'react';
-import {  Row, Col, Pagination, Spin, Alert } from 'antd';
+import {  Row, Col } from 'antd';
 import { format } from 'date-fns';
+
+import cutDescription from '../../utils/formatTexts';
 import MovieCard from '../MovieCard/MovieCard';
-import "./MoviesList.css"
-import noPoster from '../../assets/no-poster-available.jpg'
+import './MoviesList.css';
+import noPoster from '../../assets/no-poster-available.jpg';
 
 
+function MoviesList({movies,  getUserRating, isLoadingCards }) {
 
-const MoviesList = ({movies}) => {
+ 
 
-
-  const truncateDescription = (description, maxLength = 80) => {
-    if (description.length <= maxLength) return description;
-    return description.slice(0, description.lastIndexOf(' ', maxLength)) + '...';
-  };
-
-  if(movies.length===0){
-    return (<Alert
-      message="Something went wrong"
-      description="Unfortunately, we couldn't find any movies for your search. Please try to change the search parameters."
-      type="warning"
-      showIcon
-      style={{ marginBottom: '20px' }}
-    />)
-  }
 
   return (
-    <>
-       
-      <Row gutter={[36,36]}>
+    <Row gutter={[36,36]}>
         
-        {movies.map(movie => (
-          <Col span={12} key={movie.id}>
-            <MovieCard 
-              title={movie.title} 
-              release = {movie.release_date ? format(new Date(movie.release_date), 'MMMM d, yyyy') : ''}
-              description={truncateDescription(movie.overview)} 
-              imageUrl={ movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : noPoster}  
-              rating={movie.vote_average}
-            />
-          </Col>
-        ))}
-      </Row>
-     
-    </>
+      {movies.map(movie => (
+        <Col span={12} key={movie.id}>
+          <MovieCard 
+            title={cutDescription(movie.title, 35)} 
+            release = {movie.release_date ? format(new Date(movie.release_date), 'MMMM d, yyyy') : ''}
+            description={cutDescription(movie.overview)} 
+            imageUrl={ movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : noPoster}  
+            rating={movie.vote_average}
+            genres ={movie.genre_ids}
+            movieId={movie.id}
+
+            getUserRating={getUserRating}
+            isLoadingCards={isLoadingCards}
+          />
+        </Col>
+      ))}
+    </Row>
   );
 }
 

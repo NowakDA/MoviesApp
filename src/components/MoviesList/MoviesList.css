@@ -1,13 +1,12 @@
 .ant-row {
-    margin-left: 0 !important;
-
-    margin-right: 0 !important;
-
-    margin-top: 34px;
-    
+    margin: 34px 0px !important;
 }
 
-.ant-col {
-    padding: 0 !important;
+
+
+@media (max-width: 1024px) {
+    .ant-row {
+        flex-direction: column;
+    }
 
 }

@@ -20,11 +20,19 @@
   height: 280px;
 }
 
+.movie-card__description {
+  margin-right: 15px;
+}
+
 .movie-card__title{
     width: 100%;
     display: flex;
     justify-content:space-between;
+    column-gap: 15px;
+    box-sizing:border-box;
 }
+
+
 
 .movie-card__img {
   display: 'block';
@@ -33,9 +41,18 @@
 }
 
 .title{
- max-width: 215px;
+ max-width: 190px;
 }
 
+.genresList{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.genresName{
+  white-space: nowrap;
+}
 .rating {
   height: 30px;
   width: 30px;
@@ -43,6 +60,8 @@
   font-size: 14px;
   text-align: center;
   line-height: 30px;
+  max-height: 100%; 
+  max-width: 100%;
 }
 
 .low-rating {
@@ -60,3 +79,5 @@
 .top-rating {
   border: 2px solid #66e900;
 }
+
+

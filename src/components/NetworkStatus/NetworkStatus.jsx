@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Alert } from 'antd';
 
-const NetworkStatus = ({ onStatusChange }) => {
+function NetworkStatus({ onStatusChange }) {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
@@ -32,6 +32,6 @@ const NetworkStatus = ({ onStatusChange }) => {
       showIcon
     />
   );
-};
+}
 
 export default NetworkStatus;

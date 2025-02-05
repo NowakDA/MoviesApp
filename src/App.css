@@ -5,6 +5,21 @@
 
 }
 
+.ant-alert {
+  margin: 32px 32px;
+}
+
+.ant-tabs-nav-wrap {
+  justify-content: center;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 
 
 
