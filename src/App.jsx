@@ -27,12 +27,10 @@ function App() {
   const [tab, setTab] = useState(1);
   const { sessionId } = useContext(MovieContext);
 
-
   const createUrl = (value) => {
     setSearchQuery(value);
     setCurrentPage(1);
   };
-
 
   const getUserRating = (movieId) => {
     if (!ratedMovies) return 0;
@@ -40,23 +38,20 @@ function App() {
     return movieRating ? movieRating.rating : 0;
   };
 
- 
-
-  
   useEffect(() => {
     const fetchMovies = async () => {
       setIsLoadingCards(true);
       let url;
-  
+
       if (searchQuery) {
         url = `https://api.themoviedb.org/3/search/movie?query=${searchQuery}&include_adult=false&language=en-US&page=${currentPage}`;
       } else {
         url = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc`;
       }
-  
+
       try {
         const response = await fetch(url, optionsGet);
-  
+
         const data = await response.json();
         setMovies(data.results);
         setTotalResults(data.total_results);
@@ -80,7 +75,7 @@ function App() {
           `https://api.themoviedb.org/3/guest_session/${sessionId}/rated/movies?language=en-US&page=${currentRatePage}&sort_by=created_at.asc`,
           optionsGet,
         );
-  
+
         const data = await response.json();
         if (response.ok) {
           setRatedMovies(data.results);
@@ -94,10 +89,10 @@ function App() {
         console.error('Error fetching rated movies:', error);
         setError(errorRate.message);
       } finally {
-        setIsLoadingCards(false); 
+        setIsLoadingCards(false);
       }
     };
-  
+
     if (tab === '2') {
       fetchRatedMovies();
     }
@@ -117,7 +112,6 @@ function App() {
               type="warning"
               showIcon
             />
-              
           )}
           <MoviesList
             movies={movies}
@@ -151,14 +145,13 @@ function App() {
           {ratedMovies && (
             <MoviesList
               movies={ratedMovies}
-
               getUserRating={getUserRating}
               isLoadingCards={isLoadingCards}
             />
           )}
           {totalRateResults > 0 && (
             <PaginationComponent
-              current={currentRatePage}
+              currentPage={currentRatePage}
               totalResults={totalRateResults}
               onChange={(page) => {
                 setCurrentRatePage(page);

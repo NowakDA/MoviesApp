@@ -67,7 +67,7 @@ function MovieCard({
           </Typography.Title>
           <Typography.Paragraph>{release}</Typography.Paragraph>
           <Typography.Paragraph className="genresList">
-            {genreNames.slice(0, 3).map((genre, index) => (
+            {genreNames.slice(0, 2).map((genre, index) => (
               <Text key={index} keyboard className="genresName">
                 {genre}
               </Text>

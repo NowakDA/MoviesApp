@@ -1,6 +1,6 @@
-import  { createContext, useState, useEffect, useMemo } from 'react';
+import { createContext, useState, useEffect, useMemo } from 'react';
 
-import { optionsGet} from '../utils/ApiService';
+import { optionsGet } from '../utils/ApiService';
 
 const MovieContext = createContext();
 
@@ -11,7 +11,6 @@ function MovieProvider({ children }) {
     return storedId || null;
   });
 
-
   useEffect(() => {
     const fetchGenres = async () => {
       try {
@@ -19,35 +18,32 @@ function MovieProvider({ children }) {
         const data = await response.json();
         setGenres(data.genres);
       } catch (error) {
-        console.error('Error fetching genres:', error); 
+        console.error('Error fetching genres:', error);
       }
     };
 
     const createSession = async () => {
       try {
-        const response = await fetch('https://api.themoviedb.org/3/authentication/guest_session/new',optionsGet);
+        const response = await fetch(
+          'https://api.themoviedb.org/3/authentication/guest_session/new',
+          optionsGet,
+        );
         const data = await response.json();
         setSessionId(data.guest_session_id);
         sessionStorage.setItem('guestSessionId', data.guest_session_id);
-        
       } catch (error) {
         console.error('Error creating a guest session:', error);
       }
     };
-    if(!sessionId){
+    if (!sessionId) {
       createSession();
     }
     fetchGenres();
-    
   }, [sessionId]);
 
   const value = useMemo(() => ({ genresName, sessionId }), [genresName, sessionId]);
 
-  return (
-    <MovieContext.Provider value={value}>
-      {children}
-    </MovieContext.Provider>
-  );
+  return <MovieContext.Provider value={value}>{children}</MovieContext.Provider>;
 }
 
 export { MovieContext, MovieProvider };
