@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Card, Typography, Flex, Rate, Skeleton} from 'antd';
+import { Card, Typography, Flex, Rate, Skeleton, Alert } from 'antd';
 
 import './MovieCard.css';
 import { MovieContext } from '../../context/MovieContext';
@@ -20,7 +20,8 @@ function MovieCard({
 }) {
   const { genresName, sessionId } = useContext(MovieContext);
 
-  const getGenresName = (genresIds, genresNames) => genresNames.filter((genre) => genresIds.includes(genre.id)).map((genre) => genre.name);
+  const getGenresName = (genresIds, genresNames) =>
+    genresNames.filter((genre) => genresIds.includes(genre.id)).map((genre) => genre.name);
   const genreNames = getGenresName(genres, genresName);
 
   const handleRating = async (id, value) => {
@@ -46,15 +47,15 @@ function MovieCard({
     return 'top-rating';
   };
 
-  if(isLoadingCards){
-    return ( <Skeleton/>);
+  if (isLoadingCards) {
+    return <Skeleton />;
   }
 
   return (
     <Card className="movie-card" hoverable>
       <Flex justify="space-between">
         <img className="movie-card__img" alt="movie poster" src={imageUrl} />
-        <Flex 
+        <Flex
           vertical
           align="flex-start"
           justify="space-between"
@@ -67,12 +68,12 @@ function MovieCard({
           <Typography.Paragraph>{release}</Typography.Paragraph>
           <Typography.Paragraph className="genresList">
             {genreNames.slice(0, 3).map((genre, index) => (
-              <Text key={index} keyboard className='genresName'>
+              <Text key={index} keyboard className="genresName">
                 {genre}
               </Text>
             ))}
           </Typography.Paragraph>
-          <Typography.Paragraph className='movie-card__description'>
+          <Typography.Paragraph className="movie-card__description">
             {description || 'There is no description'}
           </Typography.Paragraph>
           <Rate
