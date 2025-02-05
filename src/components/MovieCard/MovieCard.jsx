@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Card, Typography, Flex, Rate, Skeleton, Alert } from 'antd';
+import { Card, Typography, Flex, Rate, Skeleton } from 'antd';
 
 import './MovieCard.css';
 import { MovieContext } from '../../context/MovieContext';
