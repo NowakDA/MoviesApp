@@ -1,1 +1,1 @@
-https://github.com/NowakDA/MoviesApp    
+https://movies-app-sandy-iota.vercel.app/
