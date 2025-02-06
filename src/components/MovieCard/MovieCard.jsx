@@ -56,6 +56,7 @@ function MovieCard({
       <Flex justify="space-between">
         <img className="movie-card__img" alt="movie poster" src={imageUrl} />
         <Flex
+          className="movie-card__info"
           vertical
           align="flex-start"
           justify="space-between"
@@ -65,7 +66,7 @@ function MovieCard({
             <span className="title">{title}</span>
             <span className={`rating ${getRatingClass(rating)}`}>{rating.toFixed(1)}</span>
           </Typography.Title>
-          <Typography.Paragraph>{release}</Typography.Paragraph>
+          <Typography.Paragraph className="release">{release}</Typography.Paragraph>
           <Typography.Paragraph className="genresList">
             {genreNames.slice(0, 2).map((genre, index) => (
               <Text key={index} keyboard className="genresName">
